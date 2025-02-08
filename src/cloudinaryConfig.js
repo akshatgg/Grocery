@@ -1,9 +1,9 @@
-// cloudinaryConfig.js
+// filepath: [cloudinaryConfig.js](http://_vscodecontentref_/3)
 import { Cloudinary } from "@cloudinary/url-gen";
 
 const cld = new Cloudinary({
   cloud: {
-    cloudName: 'deor01if5', // Your Cloudinary cloud name
+    cloudName: import.meta.env.VITE_CLOUD_NAME,
   },
 });
 
