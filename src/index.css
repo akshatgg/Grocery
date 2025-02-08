@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.slick-slide > div {
+  margin: 1rem;
+}
+.slick-list {
+  margin: 0 -10px;
+}
+
+.slick-slider .slick-prev::before,
+.slick-slider .slick-next::before {
+  color: black;
+  font-size: 2rem;
+}
+
+.slick-slider > ul > li > button::before {
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+img {
+  -webkit-user-drag: none;
+}
