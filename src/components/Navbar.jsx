@@ -1,18 +1,31 @@
 import ecobazarImg from "../assets/images/ezobazar_grocery.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBasketShopping,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const navbarLinks = ["home", "restaurants", "shop", "about", "contact"];
+
 const Navbar = () => {
   const location = useLocation();
-
   const [showMenu, setShowMenu] = useState(false);
+  const [cartItemCount, setCartItemCount] = useState(0);
+
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cartData = JSON.parse(localStorage.getItem("cartData")) || {};
+      setCartItemCount(Object.keys(cartData).length);
+    };
+
+    updateCartCount();
+
+    // Listen for changes in localStorage
+    window.addEventListener("storage", updateCartCount);
+
+    return () => {
+      window.removeEventListener("storage", updateCartCount);
+    };
+  }, [1000]);
 
   const showMenuHandler = () => {
     setShowMenu((prevState) => !prevState);
@@ -22,10 +35,10 @@ const Navbar = () => {
     <li
       key={index}
       className={`text-base duration-200 hover:text-primary-500 font-bold capitalize ${
-        item == location.pathname.slice(1) ? "text-primary-500" : ""
-      } ${index == 0 && location.pathname == "/" ? "text-primary-500" : ""}`}
+        item === location.pathname.slice(1) ? "text-primary-500" : ""
+      } ${index === 0 && location.pathname === "/" ? "text-primary-500" : ""}`}
     >
-      <Link to={`/${index == 0 ? "" : item}`}>{item}</Link>
+      <Link to={`/${index === 0 ? "" : item}`}>{item}</Link>
     </li>
   ));
 
@@ -62,26 +75,8 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* <div className="relative mt-4 lg:mt-0">
-          <input
-            type="text"
-            name="search"
-            id="search"
-            className="w-[94vw] py-4 pl-10 pr-16 outline-none lg:w-full rounded-xl text-main-700 placeholder:text-main-700"
-            placeholder="Search"
-          />
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            className="absolute w-4 text-main-500 left-4 top-1/3"
-          />
-          <button className="absolute w-10 px-1 text-2xl border-l right-4 text-main-700 top-1/4">
-            <FontAwesomeIcon icon={faBasketShopping} />
-          </button>
-          <span className="absolute px-3 py-1 text-white rounded-full shadow-lg bg-primary-700 -right-2 -top-2 shadow-primary-100">
-            2
-          </span>
-        </div> */}
-        <div className="flex gap-4 mt-4 lg:mt-0">
+        {/* Cart Icon with Item Count */}
+        <div className="relative flex items-center gap-4 mt-4 lg:mt-0">
           <button className="relative px-4 py-2 text-green-500 bg-white border border-green-500 rounded-lg hover:bg-green-500 hover:text-white">
             <span className="absolute inset-0 w-full h-full transition duration-300 ease-in-out transform bg-green-500 rounded-lg opacity-0 hover:opacity-100 hover:scale-105"></span>
             <span className="relative">Login</span>
@@ -90,6 +85,12 @@ const Navbar = () => {
             <span className="absolute inset-0 w-full h-full transition duration-300 ease-in-out transform bg-green-700 rounded-lg opacity-0 hover:opacity-100 hover:scale-105"></span>
             <span className="relative">Signup</span>
           </button>
+          <div className="relative cursor-pointer">
+            <FontAwesomeIcon icon={faBasketShopping} className="text-2xl text-white" />
+            <span className="absolute px-2 py-1 text-sm font-bold text-white bg-red-600 rounded-full -top-2 -right-3">
+              {cartItemCount}
+            </span>
+          </div>
         </div>
       </div>
     </nav>

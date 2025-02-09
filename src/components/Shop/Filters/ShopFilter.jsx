@@ -1,7 +1,7 @@
-import Letter from "./Letter";
+
 import Price from "./Price";
 import Category from "./Category";
-import Area from "./Area";
+
 import { useDispatch } from "react-redux";
 import { filtersActions } from "../../../redux/slices/filtersSlice";
 import ActiveFilters from "./ActiveFilters";

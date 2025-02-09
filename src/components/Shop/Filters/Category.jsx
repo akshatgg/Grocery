@@ -19,6 +19,9 @@ const Category = () => {
     "Grain and Pulses",
     "Vegetables",
     "Fruits",
+    "Can & Jarred Food",
+    "Chocolate & Sweets",
+    "Ketchup & Sauces",
     "All"
   ];
 

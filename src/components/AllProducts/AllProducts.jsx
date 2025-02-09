@@ -24,7 +24,7 @@ const AllProducts = () => {
     "text-base capitalize duration-300 font-bold hover:text-green-700";
 
   const allKindsOfProducts = (
-    <ul className="flex flex-wrap items-center justify-center gap-10">
+    <ul className="flex flex-wrap items-center justify-center gap-4 lg:gap-10">
       {kindsOfProducts.map((item, i) => (
         <li key={i} onClick={() => chooseTypeOfProductsHandler(item.id)}>
           <button
@@ -38,9 +38,11 @@ const AllProducts = () => {
           </button>
         </li>
       ))}
-      <Link to="/shop" className={`${productsTypeClasses} text-main-100`}>
-        view all
-      </Link>
+      <li>
+        <Link to="/shop" className={`${productsTypeClasses} text-main-100`}>
+          view all
+        </Link>
+      </li>
     </ul>
   );
 

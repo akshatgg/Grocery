@@ -1,14 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
-import ProductsData from '../../AllProducts/ProductsData'; // Ensure correct path
-import { Box, Grid, Typography, Button, Card, CardMedia, CardContent } from '@mui/material';
-import './SnaksFilterProduct.css'; // Import the CSS file
+import ProductsData from '../../AllProducts/ProductsData';
+import { Box, Grid, Typography, Button, Card, CardMedia, CardContent, IconButton } from '@mui/material';
+import { Add, Remove } from '@mui/icons-material';
+import './SnaksFilterProduct.css';
 
 const SnaksFilterProduct = () => {
     const availableFilters = useSelector((s) => s.filters);
     const selectedCategories = availableFilters.categories;
+    const [cartItems, setCartItems] = useState({});
 
-    // Filter products based on selected categories
+    useEffect(() => {
+        const storedData = JSON.parse(localStorage.getItem("cartData")) || {};
+        setCartItems(storedData);
+    }, []);
+
+    const updateLocalStorage = (newData) => {
+        localStorage.setItem("cartData", JSON.stringify(newData));
+    };
+
+    const increaseQuantity = (product) => {
+        const { uid, name, price, category } = product;
+        setCartItems((prev) => {
+            const currentItem = prev[uid] || { uid, name, price, category, quantity: 0 };
+            const updatedItem = { ...currentItem, quantity: currentItem.quantity + 1 };
+            const newCartItems = { ...prev, [uid]: updatedItem };
+            updateLocalStorage(newCartItems);
+            return newCartItems;
+        });
+    };
+
+    const decreaseQuantity = (uid) => {
+        setCartItems((prev) => {
+            const currentItem = prev[uid];
+            if (!currentItem) return prev;
+
+            const newQuantity = currentItem.quantity - 1;
+            if (newQuantity <= 0) {
+                const newCartItems = { ...prev };
+                delete newCartItems[uid];
+                updateLocalStorage(newCartItems);
+                return newCartItems;
+            }
+
+            const updatedItem = { ...currentItem, quantity: newQuantity };
+            const newCartItems = { ...prev, [uid]: updatedItem };
+            updateLocalStorage(newCartItems);
+            return newCartItems;
+        });
+    };
+
     const filteredProducts = selectedCategories.includes("All")
         ? ProductsData
         : ProductsData.filter(product =>
@@ -20,45 +61,71 @@ const SnaksFilterProduct = () => {
             {filteredProducts.length > 0 ? (
                 filteredProducts.map(category => (
                     <Box key={category.id} mb={8}>
-                        {/* Category Header */}
-                        <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 'bold',paddingBottom: '2rem' }}>
+                        <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 'bold', paddingBottom: '2rem' }}>
                             <span role="img" aria-label="category">🍽️</span> {category.Category}
                         </Typography>
 
-                        {/* Grid Layout for Products */}
                         <Grid container spacing={3}>
-                            {category.target.map((item, index) => {
-                                const details = item.vegetablesDetails || 
-                                                item.fruitDetails || 
-                                                item; // Handles different object structures
+                            {category.target.map((item) => {
+                                const details = item.vegetablesDetails || item.fruitDetails || item;
+                                const productName = details.name || details.fruitName || details.strMeal || details.strDrink;
+                                const productPrice = details.price;
+                                const productUID = item.uid;
 
                                 return (
-                                    <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+                                    <Grid item xs={12} sm={6} md={4} lg={2} key={productUID}>
                                         <Card className="product-card">
-                                            {/* Product Image */}
                                             <CardMedia
                                                 component="img"
                                                 className="product-image"
                                                 image={details.photo_url}
-                                                alt={details.name || details.fruitName || details.strMeal || details.strDrink}
+                                                alt={productName}
                                             />
-                                            {/* Product Info */}
                                             <CardContent className="product-card-content">
                                                 <Typography variant="h6" component="h3">
-                                                    {details.name || details.fruitName || details.strMeal || details.strDrink}
+                                                    {productName}
                                                 </Typography>
                                                 <Typography variant="body1" color="textSecondary">
-                                                    ${details.price.toFixed(2)}
+                                                    ${productPrice.toFixed(2)}
                                                 </Typography>
-                                                {/* Add to Cart Button */}
-                                                <Button 
-                                                    variant="contained" 
-                                                    color="primary" 
-                                                    fullWidth 
-                                                    sx={{ mt: 2 }}
-                                                >
-                                                    Add to Cart 🛒
-                                                </Button>
+                                                {cartItems[productUID]?.quantity > 0 ? (
+                                                    <Box display="flex" alignItems="center" justifyContent="center" mt={2}>
+                                                        <IconButton 
+                                                            onClick={() => decreaseQuantity(productUID)} 
+                                                            color="secondary"
+                                                        >
+                                                            <Remove />
+                                                        </IconButton>
+                                                        <Typography variant="h6" mx={2}>
+                                                            {cartItems[productUID]?.quantity || 0}
+                                                        </Typography>
+                                                        <IconButton 
+                                                            onClick={() => increaseQuantity({
+                                                                uid: productUID,
+                                                                name: productName,
+                                                                price: productPrice,
+                                                                category: category.Category
+                                                            })} 
+                                                            color="primary"
+                                                        >
+                                                            <Add />
+                                                        </IconButton>
+                                                    </Box>
+                                                ) : (
+                                                    <Button 
+                                                        variant="contained" 
+                                                        color="primary" 
+                                                        fullWidth 
+                                                        onClick={() => increaseQuantity({
+                                                            uid: productUID,
+                                                            name: productName,
+                                                            price: productPrice,
+                                                            category: category.Category
+                                                        })}
+                                                    >
+                                                        Add to Cart
+                                                    </Button>
+                                                )}
                                             </CardContent>
                                         </Card>
                                     </Grid>

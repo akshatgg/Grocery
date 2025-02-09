@@ -32,7 +32,7 @@ const DrinksShop = () => {
       // Filter based on letters
       const firstLetterMatches =
         filters.letters.length !== 0 &&
-        filters.letters.includes(item.strDrink.trim().toLowerCase().charAt(0));
+        filters.letters.includes(item.name.trim().toLowerCase().charAt(0));
 
       // Filter based on area
       const areaMatches =
@@ -73,9 +73,9 @@ const DrinksShop = () => {
         .slice(paginationIndices.start, paginationIndices.end)
         .map((drink, index) => {
           const drinkName =
-            drink.strDrink.length > 20
-              ? drink.strDrink.slice(0, 20) + "..."
-              : drink.strDrink;
+            drink.name.length > 20
+              ? drink.name.slice(0, 20) + "..."
+              : drink.name;
 
           return (
             <li
@@ -84,7 +84,7 @@ const DrinksShop = () => {
             >
               <img
                 src={drink.strDrinkThumb}
-                alt={drink.strDrink}
+                alt={drink.name}
                 className="w-full rounded-t-lg h-2/3"
               />
               <div className="flex justify-between gap-2 px-2 py-2">
