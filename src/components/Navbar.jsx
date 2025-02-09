@@ -4,7 +4,7 @@ import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const navbarLinks = ["home", "restaurants", "shop", "about", "contact"];
+const navbarLinks = ["home", "shop", "about", "contact"];
 
 const Navbar = () => {
   const location = useLocation();
