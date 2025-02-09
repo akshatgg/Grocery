@@ -10,10 +10,12 @@ import DeliciousMealsShop from "./ShopProducts/DeliciousMealsShop";
 import ShopFilter from "../Shop/Filters/ShopFilter";
 import { useDispatch } from "react-redux";
 import { filtersActions } from "../../redux/slices/filtersSlice";
+import SnaksFilterProduct from "./ShopProducts/SnaksFilterProduct";
 
 const Shop = () => {
   const [currentProductsId, setCurrentProductsId] = useState(1); // 0 || 1 || 2
   const dispatch = useDispatch();
+   
 
   const chooseDeliciousMealsHandler = () => {
     setCurrentProductsId(0);
@@ -66,7 +68,8 @@ const Shop = () => {
           <h2 className="pb-4 mx-auto mb-2 text-3xl font-bold lg:text-5xl rounded-xl w-fit text-main-700">
             Featured Products
           </h2>
-          <div className="flex items-center justify-center gap-5">
+          {/* // 3 lines// */}
+          {/* <div className="flex items-center justify-center gap-5">
             <button
               onClick={chooseDeliciousMealsHandler}
               data-mark="delicious-meals"
@@ -88,17 +91,19 @@ const Shop = () => {
                 currentProductsId == 2 && "bg-primary-500 w-20"
               }`}
             ></button>
-          </div>
+          </div> */}
         </div>
 
-        <ShopFilter productId={currentProductsId} />
+        <ShopFilter  />
 
-        <div className="container flex flex-col justify-center gap-4 md:flex-row">
-          {currentProductsId == 0 && <DeliciousMealsShop />}
+        {/* <div className="container flex flex-col justify-center gap-4 md:flex-row">
+          {currentProductsId == 0 && <SnaksFilterProduct/>}
           {currentProductsId == 2 && <MealsShop />}
           {currentProductsId == 1 && <DrinksShop />}
-        </div>
+        </div> */}
       </div>
+      
+      <SnaksFilterProduct/>
     </section>
   );
 };

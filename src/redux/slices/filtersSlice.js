@@ -14,12 +14,12 @@ export const filtersSlice = createSlice({
   name: "filters",
   initialState: initialFiltersState,
   reducers: {
-    setLetters(state, action) {
-      state.letters = action.payload;
-    },
-    setAreas(state, action) {
-      state.areas = action.payload;
-    },
+    // setLetters(state, action) {
+    //   state.letters = action.payload;
+    // },
+    // setAreas(state, action) {
+    //   state.areas = action.payload;
+    // },
     setCategories(state, action) {
       state.categories = action.payload;
     },

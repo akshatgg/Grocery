@@ -3,42 +3,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { filtersActions } from "../../../redux/slices/filtersSlice";
-const Category = ({ productId }) => {
+
+const Category = () => {
   const [openCategories, setOpenCategories] = useState(false);
 
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.filters.categories);
 
-  const correctProducts = useSelector((state) =>
-    productId == 1
-      ? state.drinks.allDrinks
-      : productId == 2
-      ? state.meals.allMeals
-      : null
-  );
-
-  const productCategories = [];
-  correctProducts.forEach((prod) => {
-    const productsArray =
-      productId == 1 ? prod.drinks : productId == 2 ? prod.meals : [];
-    // Drinks
-    productsArray.forEach((item) => {
-      if (!productCategories.includes(item.strCategory))
-        productCategories.push(item.strCategory);
-    });
-
-    // Meals:
-    productsArray.forEach((item) => {
-      if (!productCategories.includes(item.strCategory))
-        productCategories.push(item.strCategory);
-    });
-  });
+  const productCategories = [
+    "Snaks & Namkeen",
+    "Biscuits & Cookies",
+    "Masaale & Spices",
+    "Dairy Products",
+    "Beverages",
+    "Grain and Pulses",
+    "Vegetables",
+    "Fruits",
+    "All"
+  ];
 
   const chooseCategoryHandler = (cat) => {
-    // Check if the category is exist in the redux array or not to add/remove it.
+    // Check if the category exists in the redux array or not to add/remove it.
     categories.includes(cat)
       ? dispatch(
-          filtersActions.setCategories(categories.filter((item) => item != cat))
+          filtersActions.setCategories(categories.filter((item) => item !== cat))
         )
       : dispatch(filtersActions.setCategories([...categories, cat]));
   };
@@ -63,7 +51,7 @@ const Category = ({ productId }) => {
     <div className="relative z-30">
       <div
         onClick={() => setOpenCategories((prevState) => !prevState)}
-        className={`flex items-center hover:text-main-700 justify-between w-48 px-3 py-2 duration-300  border-2 rounded-lg outline-none cursor-pointer bg-white ${
+        className={`flex items-center hover:text-main-700 justify-between w-48 px-3 py-2 duration-300 border-2 rounded-lg outline-none cursor-pointer bg-white ${
           openCategories
             ? "text-main-700 border-primary-700"
             : "text-neutral-500"
@@ -72,7 +60,7 @@ const Category = ({ productId }) => {
         <button>Select Category</button>
         <FontAwesomeIcon
           icon={faChevronDown}
-          className={` duration-300 ${openCategories ? "rotate-180" : ""}`}
+          className={`duration-300 ${openCategories ? "rotate-180" : ""}`}
         />
       </div>
       {openCategories && (

@@ -62,7 +62,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="relative mt-4 lg:mt-0">
+        {/* <div className="relative mt-4 lg:mt-0">
           <input
             type="text"
             name="search"
@@ -80,6 +80,16 @@ const Navbar = () => {
           <span className="absolute px-3 py-1 text-white rounded-full shadow-lg bg-primary-700 -right-2 -top-2 shadow-primary-100">
             2
           </span>
+        </div> */}
+        <div className="flex gap-4 mt-4 lg:mt-0">
+          <button className="relative px-4 py-2 text-green-500 bg-white border border-green-500 rounded-lg hover:bg-green-500 hover:text-white">
+            <span className="absolute inset-0 w-full h-full transition duration-300 ease-in-out transform bg-green-500 rounded-lg opacity-0 hover:opacity-100 hover:scale-105"></span>
+            <span className="relative">Login</span>
+          </button>
+          <button className="relative px-4 py-2 text-white bg-[#00B207] border border-green-500 rounded-lg hover:bg-green-700">
+            <span className="absolute inset-0 w-full h-full transition duration-300 ease-in-out transform bg-green-700 rounded-lg opacity-0 hover:opacity-100 hover:scale-105"></span>
+            <span className="relative">Signup</span>
+          </button>
         </div>
       </div>
     </nav>

@@ -20,6 +20,7 @@ import { fruitsActions } from "../redux/slices/fruitsSlice";
 import { vegetablesActions } from "../redux/slices/vegetablesSlice";
 import { db } from "../config/firebase";
 import { errorsActions } from "../redux/slices/errorsSlice";
+import SnaksFilterProduct from "../components/Shop/ShopProducts/SnaksFilterProduct.jsx";
 
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -157,6 +158,7 @@ const Homepage = () => {
       <Statistics />
       <OrganicFoodFeature />
       {/* <FoodProducts /> */}
+    
       <Footer />
     </>
   );
