@@ -6,6 +6,9 @@ import PageNotFound from "./pages/PageNotFound";
 import RestaurantsPage from "./pages/RestaurantsPage";
 import ShopPage from "./pages/ShopPage";
 import Contact from "./pages/Contact";
+import CartPage from "./components/Cart/CartPage";
+import ProductDetails from "./components/ProductDetails";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 const App = () => {
   return (
     <>
@@ -16,6 +19,8 @@ const App = () => {
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/*" element={<PageNotFound />} />
+        <Route path="/cart" element={<CartPage/>} />
+        <Route path="/product/:uid" element={<ProductDetailsPage />} />
       </Routes>
     </>
   );

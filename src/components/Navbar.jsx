@@ -85,12 +85,14 @@ const Navbar = () => {
             <span className="absolute inset-0 w-full h-full transition duration-300 ease-in-out transform bg-green-700 rounded-lg opacity-0 hover:opacity-100 hover:scale-105"></span>
             <span className="relative">Signup</span>
           </button>
+          <Link to={"/cart"}>
           <div className="relative cursor-pointer">
             <FontAwesomeIcon icon={faBasketShopping} className="text-2xl text-white" />
             <span className="absolute px-2 py-1 text-sm font-bold text-white bg-red-600 rounded-full -top-2 -right-3">
               {cartItemCount}
             </span>
           </div>
+          </Link>
         </div>
       </div>
     </nav>

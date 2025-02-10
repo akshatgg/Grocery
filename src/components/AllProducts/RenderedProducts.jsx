@@ -11,7 +11,6 @@ const RenderedProducts = ({ productType }) => {
     const storedData = JSON.parse(localStorage.getItem("cartData")) || {};
     setCartItems(storedData);
     console.log(storedData);
-    
   }, []);
 
   const updateLocalStorage = (newData) => {
@@ -19,9 +18,9 @@ const RenderedProducts = ({ productType }) => {
   };
 
   const increaseQuantity = (product) => {
-    const { uid, name, price, category } = product;
+    const { uid, name, price, category, img } = product;
     setCartItems((prev) => {
-      const currentItem = prev[uid] || { uid, name, price, category, quantity: 0 };
+      const currentItem = prev[uid] || { uid, name, price, category, img, quantity: 0 };
       const updatedItem = { ...currentItem, quantity: currentItem.quantity + 1 };
       const newCartItems = { ...prev, [uid]: updatedItem };
       updateLocalStorage(newCartItems);
@@ -110,7 +109,8 @@ const RenderedProducts = ({ productType }) => {
                 uid: item.uid,
                 name: title,
                 price: price,
-                category: productType.Category
+                category: productType.Category,
+                img: img, // Include the image URL here
               })}
             />
           </div>
@@ -126,7 +126,8 @@ const RenderedProducts = ({ productType }) => {
               uid: item.uid,
               name: title,
               price: price,
-              category: productType.Category
+              category: productType.Category,
+              img: img, // Include the image URL here
             })}
           />
           <FontAwesomeIcon
