@@ -9,6 +9,8 @@ import Contact from "./pages/Contact";
 import CartPage from "./components/Cart/CartPage";
 import ProductDetails from "./components/ProductDetails";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import SignupPage from "./pages/Auth/SignUp/Signup";
+import LoginPage from "./pages/Auth/Login/login";
 const App = () => {
   return (
     <>
@@ -21,6 +23,8 @@ const App = () => {
         <Route path="/*" element={<PageNotFound />} />
         <Route path="/cart" element={<CartPage/>} />
         <Route path="/product/:uid" element={<ProductDetailsPage />} />
+        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </>
   );

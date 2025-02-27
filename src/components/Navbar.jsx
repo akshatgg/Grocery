@@ -79,11 +79,11 @@ const Navbar = () => {
         <div className="relative flex items-center gap-4 mt-4 lg:mt-0">
           <button className="relative px-4 py-2 text-green-500 bg-white border border-green-500 rounded-lg hover:bg-green-500 hover:text-white">
             <span className="absolute inset-0 w-full h-full transition duration-300 ease-in-out transform bg-green-500 rounded-lg opacity-0 hover:opacity-100 hover:scale-105"></span>
-            <span className="relative">Login</span>
+           <Link to={"/login"}> <span className="relative">Login</span></Link>
           </button>
           <button className="relative px-4 py-2 text-white bg-[#00B207] border border-green-500 rounded-lg hover:bg-green-700">
             <span className="absolute inset-0 w-full h-full transition duration-300 ease-in-out transform bg-green-700 rounded-lg opacity-0 hover:opacity-100 hover:scale-105"></span>
-            <span className="relative">Signup</span>
+           <Link to={"/signup"}> <span className="relative">Signup</span></Link>
           </button>
           <Link to={"/cart"}>
           <div className="relative cursor-pointer">
